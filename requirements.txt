@@ -1,0 +1,32 @@
+# Main pipeline environment (notebooks 01-07). Python 3.11; the recorded reference runs used CPython 3.11.9.
+# Install from the repository root:  python -m pip install -r requirements.txt
+#
+# Versions are the ones recorded by the reference runs (Notebook 04 baseline registry, Notebook 06
+# reproducibility package, Notebook 07 sequence-model records). Packages whose version was not recorded are
+# listed without a pin and marked UNRESOLVED; pip then selects a version compatible with the pins above them.
+# The PPGR reproduction in Notebook 07 runs in a separate interpreter: see requirements-ppgr.txt.
+
+numpy==2.4.2
+pandas==2.3.3
+scikit-learn==1.8.0
+joblib==1.5.3
+pyarrow==23.0.1
+matplotlib==3.10.8
+
+# Recorded as 2.5.1+cu121 (CUDA 12.1 build). The PyPI 2.5.1 wheel for Linux is a different CUDA build
+# (CUDA 12.4); CPU-only builds are served from download.pytorch.org. The build tag does not change the
+# torch version, but GPU-vs-CPU execution can change the Notebook 07 sequence-model numerics.
+torch==2.5.1
+
+# UNRESOLVED: scipy is imported by Notebook 07 (PPGR correlation analysis) and is required by scikit-learn,
+# but the version used by the reference runs was not recorded.
+scipy
+
+# Notebook execution (recorded versions).
+ipython==9.10.0
+ipykernel==7.2.0
+nbformat==5.11.1
+nbclient==0.11.0
+
+# Makes `src` importable from any working directory (notebooks use `from src.paths import ...`).
+-e .

@@ -1,0 +1,4 @@
+static_table,source_rows,unique_subjects,dynamic_cohort_subjects,cohort_records_present,cohort_records_with_values,cohort_all_value_fields_missing,outside_dynamic_cohort_rows,value_field_count,cohort_missing_value_cells
+bio,45,45,45,45,45,0,0,23,0
+gut,47,47,45,45,42,3,2,22,66
+microbiome,45,45,45,45,44,1,0,1979,1979

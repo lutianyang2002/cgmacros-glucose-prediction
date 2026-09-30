@@ -1,0 +1,85 @@
+{
+  "method_version": "device_horizon_sensitivity_v1",
+  "analysis_scope": "exploratory supplementary robustness analysis",
+  "tasks": [
+    {
+      "sensitivity_id": "dexcom_target_30min",
+      "task_id": "sensitivity_dexcom_30min",
+      "target_device": "Dexcom",
+      "target_field": "dexcom_gl",
+      "history_field": "dexcom_gl",
+      "forecast_horizon_minutes": 30,
+      "changed_factor": "target_device",
+      "comparison_task": "primary_libre_30min",
+      "target_unit": "mg/dL",
+      "history_minutes": 120,
+      "origin_stride_minutes": 5,
+      "grid_resolution_minutes": 1,
+      "history_interval": "[t-120min, t]",
+      "prediction_type": "single_future_point_glucose_forecasting",
+      "window_rule": "strict_published_history_v1",
+      "split_rule": "primary_scope_v1",
+      "baseline_model": "GlucoBench Linear Regression; in_len=24; training-only MinMaxScaler",
+      "analysis_scope": "exploratory supplementary sensitivity"
+    },
+    {
+      "sensitivity_id": "libre_horizon_60min",
+      "task_id": "sensitivity_libre_horizon60",
+      "target_device": "Libre",
+      "target_field": "libre_gl",
+      "history_field": "libre_gl",
+      "forecast_horizon_minutes": 60,
+      "changed_factor": "forecast_horizon",
+      "comparison_task": "primary_libre_30min",
+      "target_unit": "mg/dL",
+      "history_minutes": 120,
+      "origin_stride_minutes": 5,
+      "grid_resolution_minutes": 1,
+      "history_interval": "[t-120min, t]",
+      "prediction_type": "single_future_point_glucose_forecasting",
+      "window_rule": "strict_published_history_v1",
+      "split_rule": "primary_scope_v1",
+      "baseline_model": "GlucoBench Linear Regression; in_len=24; training-only MinMaxScaler",
+      "analysis_scope": "exploratory supplementary sensitivity"
+    }
+  ],
+  "models": {
+    "persistence": "prediction equals the task device value at origin",
+    "glucobench_linear_regression": {
+      "config": "in_len=24",
+      "lag_offsets_minutes": [
+        -115,
+        -110,
+        -105,
+        -100,
+        -95,
+        -90,
+        -85,
+        -80,
+        -75,
+        -70,
+        -65,
+        -60,
+        -55,
+        -50,
+        -45,
+        -40,
+        -35,
+        -30,
+        -25,
+        -20,
+        -15,
+        -10,
+        -5,
+        0
+      ],
+      "fit_intercept": true,
+      "preprocessing": "one MinMaxScaler per task and evaluation protocol, fitted on training lags and targets only"
+    }
+  },
+  "not_evaluated": {
+    "alternative_history": "no concrete length pre-specified in the task protocol",
+    "alternative_grid": "no concrete grid variant pre-specified",
+    "alternative_split_or_cv": "optional only; no concrete variant pre-specified"
+  }
+}
